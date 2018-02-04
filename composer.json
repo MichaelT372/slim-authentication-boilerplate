@@ -1,6 +1,6 @@
 {
-    "name": "Slim project",
-    "description": "Slim boilerplate",
+    "name": "Slim Authentication boilerplate",
+    "description": "Boilerplate for an app with slim php that has authentication with sessions",
     "keywords": ["microframework", "rest", "router", "psr7"],
     "homepage": "http://mthomasdev.com",
     "license": "MIT",
@@ -25,7 +25,6 @@
         }
     },
     "scripts": {
-        "start": "php -S localhost:8080 -t public public/index.php",
-        "test": "phpunit"
+        "start": "php -S localhost:8080 -t public public/index.php"
     }
 }

@@ -1,14 +1,18 @@
 <?php
 
-$app->get('/home', 'HomeController:index')->setName('home');
+use App\Controllers\HomeController;
+use App\Controllers\Auth\AuthController;
+use App\Controllers\Auth\PasswordController;
 
-$app->get('/auth/signup', 'AuthController:getSignUp')->setName('auth.signup');
-$app->post('/auth/signup', 'AuthController:postSignUp');
+$app->get('/home', HomeController::class . ':index')->setName('home');
 
-$app->get('/auth/signin', 'AuthController:getSignIn')->setName('auth.signin');
-$app->post('/auth/signin', 'AuthController:postSignIn');
+$app->get('/auth/signup', AuthController::class . ':getSignUp')->setName('auth.signup');
+$app->post('/auth/signup', AuthController::class . ':postSignUp');
 
-$app->get('/auth/signout', 'AuthController:getSignOut')->setName('auth.signout');
+$app->get('/auth/signin', AuthController::class . ':getSignIn')->setName('auth.signin');
+$app->post('/auth/signin', AuthController::class . ':postSignIn');
 
-$app->get('/auth/password/change', 'PasswordController:getChangePassword')->setName('auth.password.change');
-$app->post('/auth/password/change', 'PasswordController:postChangePassword');
+$app->get('/auth/signout', AuthController::class . ':getSignOut')->setName('auth.signout');
+
+$app->get('/auth/password/change', PasswordController::class . ':getChangePassword')->setName('auth.password.change');
+$app->post('/auth/password/change', PasswordController::class . ':postChangePassword');

@@ -10,46 +10,46 @@ class AuthController extends Controller
 {
 		public function getSignOut($request, $response)
 		{
-				$this->auth->logout();
+				$this->c->auth->logout();
 
-				return $response->withRedirect($this->router->pathFor('home'));
+				return $response->withRedirect($this->c->router->pathFor('home'));
 		}
 
 		public function getSignIn($request, $response)
 		{
-				return $this->view->render($response, 'auth/signin.twig');
+				return $this->c->view->render($response, 'auth/signin.twig');
 		}
 
 		public function postSignIn($request, $response)
 		{
-				$auth = $this->auth->attempt(
+				$auth = $this->c->auth->attempt(
 						$request->getParam('email'),
 						$request->getParam('password')
 				);
 
 				if (!$auth) {
-						$this->flash->addMessage('error', 'Could not sign you in with those details!');
-						return $response->withRedirect($this->router->pathFor('auth.signin'));
+						$this->c->flash->addMessage('error', 'Could not sign you in with those details!');
+						return $response->withRedirect($this->c->router->pathFor('auth.signin'));
 				}
 
-				return $response->withRedirect($this->router->pathFor('home'));
+				return $response->withRedirect($this->c->router->pathFor('home'));
 		}
 
 		public function getSignUp($request, $response)
 		{
-				return $this->view->render($response, 'auth/signup.twig');
+				return $this->c->view->render($response, 'auth/signup.twig');
 		}
 
 		public function postSignUp($request, $response)
 		{
-			$validation = $this->validator->validate($request, [
+			$validation = $this->c->validator->validate($request, [
 					'email' => v::noWhitespace()->notEmpty()->email()->emailAvailable(),
 					'name' => v::notEmpty()->alpha(),
 					'password' => v::noWhitespace()->notEmpty()
 			]);
 
 			if ($validation->failed()) {
-					return $response->withRedirect($this->router->pathFor('auth.signup'));
+					return $response->withRedirect($this->c->router->pathFor('auth.signup'));
 			}
 
 			$user = User::create([
@@ -58,10 +58,10 @@ class AuthController extends Controller
 					'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
 			]);
 
-			$this->flash->addMessage('info', 'You have been signed up!');
+			$this->c->flash->addMessage('info', 'You have been signed up!');
 
-			$auth = $this->auth->attempt($user->email, $request->getParam('password'));
+			$auth = $this->c->auth->attempt($user->email, $request->getParam('password'));
 			
-			return $response->withRedirect($this->router->pathFor('home'));
+			return $response->withRedirect($this->c->router->pathFor('home'));
 		}
 }

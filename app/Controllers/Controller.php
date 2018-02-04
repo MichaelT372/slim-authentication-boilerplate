@@ -2,19 +2,13 @@
 
 namespace App\Controllers;
 
+use Interop\Container\ContainerInterface;
+
 class Controller 
 {
-    protected $container;
-    
-    public function __construct($container) 
-    {
-        $this->container = $container;
-    }
+    protected $c;
 
-    public function __get($property)
-    {
-        if ($this->container->{$property}) {
-            return $this->container->{$property};
-        }
+    public function __construct(ContainerInterface $c) {
+        $this->c = $c;
     }
 }
