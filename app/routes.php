@@ -4,7 +4,7 @@ use App\Controllers\HomeController;
 use App\Controllers\Auth\AuthController;
 use App\Controllers\Auth\PasswordController;
 
-$app->get('/home', HomeController::class . ':index')->setName('home');
+$app->get('/', HomeController::class . ':index')->setName('home');
 
 $app->get('/auth/signup', AuthController::class . ':getSignUp')->setName('auth.signup');
 $app->post('/auth/signup', AuthController::class . ':postSignUp');
