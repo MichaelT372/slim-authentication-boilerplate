@@ -3,6 +3,7 @@
 use App\Controllers\HomeController;
 use App\Controllers\Auth\AuthController;
 use App\Controllers\Auth\PasswordController;
+use App\Middleware\AuthenticatedMiddleware;
 
 $app->get('/', HomeController::class . ':index')->setName('home');
 
@@ -12,7 +13,8 @@ $app->post('/auth/signup', AuthController::class . ':postSignUp');
 $app->get('/auth/signin', AuthController::class . ':getSignIn')->setName('auth.signin');
 $app->post('/auth/signin', AuthController::class . ':postSignIn');
 
-$app->get('/auth/signout', AuthController::class . ':getSignOut')->setName('auth.signout');
-
-$app->get('/auth/password/change', PasswordController::class . ':getChangePassword')->setName('auth.password.change');
-$app->post('/auth/password/change', PasswordController::class . ':postChangePassword');
+$app->group('', function(){
+    $this->get('/auth/signout', AuthController::class . ':getSignOut')->setName('auth.signout');
+    $this->get('/auth/password/change', PasswordController::class . ':getChangePassword')->setName('auth.password.change');
+    $this->post('/auth/password/change', PasswordController::class . ':postChangePassword');
+})->add(new AuthenticatedMiddleware($container));
