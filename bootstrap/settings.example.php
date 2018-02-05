@@ -5,7 +5,7 @@ return [
       'displayErrorDetails' => true,
       'db' => [
           'driver' => 'mysql',
-          'host' => 'localhost',
+          'host' => '',
           'database' => '',
           'username' => '',
           'password' => '',
